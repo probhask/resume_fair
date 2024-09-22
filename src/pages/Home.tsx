@@ -28,15 +28,15 @@ const Home = () => {
             <Outlet />
           </div>
         </div>
-        <Link
-          to={"/resume"}
+        <button
+          // to={"/resume"}
           className="w-full bg-[#b00f51] text-white py-2   h-[40px] max-w-[1205.66px] text-xl sm:rounded flex items-center justify-center gap-x-2 active:scale-95 transition-all"
         >
           <span>
             <IoEye />
           </span>
           <button>View Resume</button>
-        </Link>
+        </button>
       </div>
     </div>
   );

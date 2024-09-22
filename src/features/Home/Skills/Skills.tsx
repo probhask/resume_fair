@@ -46,9 +46,9 @@ const Skills = React.memo(() => {
                   >
                     <InputText
                       hideLabel={true}
-                      name={`${i}.skills`}
+                      name={`${i}.skill`}
                       onValueChange={handleChange}
-                      placeholder={"skills"}
+                      placeholder={"skill"}
                       handleBlur={handleBlur}
                       value={values[i]?.skill ?? ""}
                       errorMsg={errors[i]?.skill}
