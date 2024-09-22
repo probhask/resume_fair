@@ -28,7 +28,7 @@ const ResumePreview = () => {
 
   return (
     <div
-      className="resume-preview-container bg-black cursor-pointer min-h-svh h-auto overflow-auto text-white max-w-[1200px]
+      className="resume-preview-container bg-black cursor-pointer min-h-svh h-auto overflow-auto text-white max-w-[1200px] mx-auto
     "
     >
       <div className="flex flex-col  items-center gap-y-2 py-3 h-full w-full">
