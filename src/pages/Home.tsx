@@ -30,7 +30,7 @@ const Home = () => {
         </div>
         <Link
           to={"/template"}
-          className=" sticky bottom-0 mt-6 w-full flex bg-[#b00f51] text-white py-2 h-[60px] max-w-[1205.66px] text-xl sm:rounded  items-center justify-center gap-x-2 active:scale-95 transition-all"
+          className=" sticky bottom-0 left-0 right-0 mt-6 w-full flex bg-[#b00f51] text-white py-2 h-[60px]  text-xl sm:rounded  items-center justify-center gap-x-2 active:scale-95 transition-all"
         >
           <span>
             <IoEye />
