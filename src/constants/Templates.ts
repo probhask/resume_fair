@@ -28,11 +28,11 @@ const templateList: TemplateList[] = [
 export const templatePreviewList: { id: string; templateImage: string }[] = [
   {
     id: "1",
-    templateImage: "/src/assets/template/template1.png",
+    templateImage: "/template/template1.png",
   },
   {
     id: "2",
-    templateImage: "/src/assets/template/template2.png",
+    templateImage: "/template/template2.png",
   },
 ];
 export default templateList;

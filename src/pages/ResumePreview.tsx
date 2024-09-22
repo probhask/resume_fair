@@ -1,8 +1,8 @@
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import templateList, { defaultTemplate } from "@constants/Templates";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import ResumePDF from "@components/ResumePDF/ResumePDF";
 import useLocalStorage from "@hooks/useLocalStorage";
 import { useParams } from "react-router-dom";
@@ -20,40 +20,8 @@ const ResumePreview = () => {
     setTemplate(template ? template.template : defaultTemplate);
   }, [templateID]);
 
-  const [, setScale] = useState(1);
-  const [, setScaleX] = useState(1);
-  const [scaleY, setScaleY] = useState(1);
   const { getLocalStorage } = useLocalStorage();
   const storedData = getLocalStorage();
-
-  const pdfRef = useRef<HTMLDivElement>(null);
-
-  const updateScale = () => {
-    const a4Width = 210;
-    const a4Height = 297;
-
-    const a4WidthPx = (a4Width / 25.4) * 96;
-    const a4HeightPx = (a4Height / 25.4) * 96;
-
-    const viewPortWidth = window.innerWidth;
-    const viewPortHeight = window.innerHeight;
-
-    const scaleWidth = viewPortWidth / a4WidthPx;
-    const scaleHeight = viewPortHeight / a4HeightPx;
-
-    setScale(Math.min(scaleWidth, scaleHeight));
-    setScaleX(scaleWidth);
-    setScaleY(scaleHeight);
-  };
-
-  useEffect(() => {
-    updateScale();
-    window.addEventListener("resize", updateScale);
-
-    return () => {
-      window.removeEventListener("resize", updateScale);
-    };
-  }, []);
 
   return (
     <div
@@ -61,13 +29,13 @@ const ResumePreview = () => {
     "
     >
       <div className="flex flex-col  items-center gap-y-2 py-3 h-full w-full">
-        <div className="sm:hidden">
+        <div className="">
           {/* logo */}
-          <div>
+          <div className="w-full min-w-[150px] sm:min-w-[400px] h-[200px] max-h-[300px] sm:h-[400px] sm:max-h-[400px] overflow-hidden">
             <img
               src="/logo-color.png"
               alt="logo"
-              className="w-full min-w-[150px] h-[200px] max-h-[200px]"
+              className="w-full h-full object-cover"
             />
           </div>
           {/* small screen msg */}
@@ -102,34 +70,30 @@ const ResumePreview = () => {
         </div>
 
         {/* resume preview */}
-        <div
-          key={window.innerWidth}
-          className="hidden sm:block w-[99%] max-w-[217mm] h-[100vh] overflow-hidden"
-          ref={pdfRef}
-        >
-          <PDFViewer
-            key={
-              scaleY +
-              fontSize +
-              pageMargin +
-              (templateID ? templateID : "1") +
-              window.innerWidth
-            }
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundColor: "inherit",
-            }}
-            showToolbar={false}
+        {/* <ErrorBoundary>
+          <div
+            key={window.innerWidth}
+            className="hidden sm:block w-[99%] max-w-[217mm] h-[100vh] overflow-hidden"
+            ref={pdfRef}
           >
-            <ResumePDF
-              fontSize={fontSize}
-              pageMargin={pageMargin}
-              template={template}
-              data={storedData}
-            />
-          </PDFViewer>
-        </div>
+            <PDFViewer
+              key={templateID ? templateID : "1"}
+              style={{
+                width: "100%",
+                height: "100%",
+                backgroundColor: "inherit",
+              }}
+              showToolbar={false}
+            >
+              <ResumePDF
+                fontSize={fontSize}
+                pageMargin={pageMargin}
+                template={template}
+                data={storedData}
+              />
+            </PDFViewer>
+          </div>
+        </ErrorBoundary> */}
       </div>
     </div>
   );
