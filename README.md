@@ -4,6 +4,7 @@
 - [Resume Fair](#resume-fair)
   - [Table Of Contents](#table-of-contents)
   - [Introduction](#introduction)
+    - [Deployment](#deployment)
     - [Features](#features)
   - [Technologies Used](#technologies-used)
   - [Components Overview](#components-overview)
@@ -19,10 +20,9 @@
 ## Introduction
 This project is a **Resume Builder App** developed using React, TypeScript, and `@react-pdf/renderer`. The app allows users to input their personal details, education, experience, skills, and other information, and generates a resume in PDF format using customizable templates.
 
-
+### Deployment
+This project has been successfully deployed on **Netlify** making it easily accessible online. You can view th live version of the project by visiting the following link: [Netlify Deployment Link🔗](https://resume-fair.netlify.app/)
 ![Welcome page](./websiteMedia/1.png)
-
-
 
 ### Features
 - **Customizable Resume Templates**: Users can select from multiple templates to generate their resume.
