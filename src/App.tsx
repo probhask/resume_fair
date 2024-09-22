@@ -71,7 +71,7 @@ const routes = createBrowserRouter([
     element: <ChooseTemplate />,
   },
   {
-    path: "resume/:templateID",
+    path: "resume/:templateId",
     element: <ResumePreview />,
   },
 ]);

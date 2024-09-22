@@ -1,8 +1,9 @@
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import templateList, { defaultTemplate } from "@constants/Templates";
 import { useEffect, useState } from "react";
 
+import ErrorBoundary from "@components/ErrorBoundary/ErrorBoundary";
 import { Link } from "react-router-dom";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 import ResumePDF from "@components/ResumePDF/ResumePDF";
 import useLocalStorage from "@hooks/useLocalStorage";
 import { useParams } from "react-router-dom";
@@ -11,21 +12,25 @@ const ResumePreview = () => {
   const [fontSize] = useState<number>(10);
   const [pageMargin] = useState<number>(14);
   const [template, setTemplate] = useState<TemplateStyle>(defaultTemplate);
+  const [tempId, setTempId] = useState<string>("1");
 
-  const { templateID } = useParams();
+  const { templateId } = useParams();
   useEffect(() => {
-    const template = templateList.find(
-      (template) => template.id === templateID
-    );
-    setTemplate(template ? template.template : defaultTemplate);
-  }, [templateID]);
+    if (templateId) {
+      const template = templateList.find(
+        (template) => template?.id === templateId
+      );
+      setTemplate(template ? template?.template : defaultTemplate);
+      setTempId(templateId);
+    }
+  }, [templateId]);
 
   const { getLocalStorage } = useLocalStorage();
   const storedData = getLocalStorage();
 
   return (
     <div
-      className="resume-preview-container bg-black cursor-pointer h-svh overflow-y-auto text-white max-w-[1200px]
+      className="resume-preview-container bg-black cursor-pointer min-h-svh h-auto overflow-auto text-white max-w-[1200px]
     "
     >
       <div className="flex flex-col  items-center gap-y-2 py-3 h-full w-full">
@@ -70,14 +75,13 @@ const ResumePreview = () => {
         </div>
 
         {/* resume preview */}
-        {/* <ErrorBoundary>
+        <ErrorBoundary>
           <div
-            key={window.innerWidth}
+            key={window?.innerWidth}
             className="hidden sm:block w-[99%] max-w-[217mm] h-[100vh] overflow-hidden"
-            ref={pdfRef}
           >
             <PDFViewer
-              key={templateID ? templateID : "1"}
+              key={tempId ? tempId : "1"}
               style={{
                 width: "100%",
                 height: "100%",
@@ -93,7 +97,7 @@ const ResumePreview = () => {
               />
             </PDFViewer>
           </div>
-        </ErrorBoundary> */}
+        </ErrorBoundary>
       </div>
     </div>
   );
