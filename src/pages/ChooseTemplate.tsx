@@ -1,40 +1,25 @@
-import { DefaultResumeData } from "@constants/DefaultResumeData";
+import templateList, { templatePreviewList } from "@constants/Templates";
+
 import { Link } from "react-router-dom";
-import { PDFViewer } from "@react-pdf/renderer";
-import ResumePDF from "@components/ResumePDF/ResumePDF";
-import templateList from "@constants/Templates";
 
 const ChooseTemplate = () => {
   return (
-    <div className="w-full h-svh  py-8 bg-black flex flex-col item-center">
-      <h1 className=" text-pink-700 font-extrabold text-2xl mb-5 text-center">
+    <div className="w-full h-svh  py-8 bg-black flex flex-col item-center overflow-y-auto">
+      <h1 className=" text-pink-700 font-bold text-3xl sm:text-6xl mb-5 sm:mb-20 text-center">
         Choose Template
       </h1>
-      <div className="flex items-center justify-start flex-wrap gap-5 w-full max-w-[1200px]">
-        {templateList.map(({ id, template }) => (
+      <div className="flex items-center justify-start flex-wrap w-fit gap-x-[100px] gap-y-[50px] max-w-[1200px] mx-auto ">
+        {templateList.map(({ id }, index) => (
           <Link
             to={`/resume/${id}`}
             key={id}
-            className="w-[217px] h-[305px] pdf-container  relative mx-auto rounded-lg overflow-hidden hover:scale-[1.04] transition-all cursor-pointer m-0"
+            className="w-[180px] sm:w-[213px] h-[250px] sm:h-[300px] flex-grow-0 flex-shrink-0  pdf-container  relative mx-auto rounded-lg overflow-hidden  hover:scale-[1.04] transition-all cursor-pointer m-0 hide-scrollbar shadow shadow-white flex justify-center items-center border-2 border-neutral-900  p-0.5"
           >
-            <PDFViewer
-              style={{
-                width: "201px",
-                height: "284px",
-                backgroundColor: "inherit",
-                overflow: "hidden",
-                position: "relative",
-              }}
-              showToolbar={false}
-            >
-              <ResumePDF
-                fontSize={10}
-                pageMargin={14}
-                template={template}
-                data={DefaultResumeData}
-              />
-            </PDFViewer>
-            <div className="absolute top-0 left-0 right-0 bottom-0 bg-transparent"></div>
+            <img
+              src={templatePreviewList[index].templateImage}
+              alt=" template-image"
+              className="w-full  h-full object-contain"
+            />
           </Link>
         ))}
       </div>

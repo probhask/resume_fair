@@ -24,4 +24,15 @@ const templateList: TemplateList[] = [
   { id: "1", template: defaultTemplate },
   { id: "2", template: template2 },
 ];
+
+export const templatePreviewList: { id: string; templateImage: string }[] = [
+  {
+    id: "1",
+    templateImage: "/src/assets/template/template1.png",
+  },
+  {
+    id: "2",
+    templateImage: "/src/assets/template/template2.png",
+  },
+];
 export default templateList;

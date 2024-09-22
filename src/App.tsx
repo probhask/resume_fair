@@ -67,7 +67,7 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: "resume",
+    path: "template",
     element: <ChooseTemplate />,
   },
   {
@@ -78,9 +78,11 @@ const routes = createBrowserRouter([
 
 function App() {
   return (
-    <ErrorBoundary>
-      <RouterProvider router={routes} />
-    </ErrorBoundary>
+    <div className="bg-black">
+      <ErrorBoundary>
+        <RouterProvider router={routes} />
+      </ErrorBoundary>
+    </div>
   );
 }
 

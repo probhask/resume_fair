@@ -1,10 +1,11 @@
-import { Link, useParams } from "react-router-dom";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import templateList, { defaultTemplate } from "@constants/Templates";
 import { useEffect, useRef, useState } from "react";
 
+import { Link } from "react-router-dom";
 import ResumePDF from "@components/ResumePDF/ResumePDF";
 import useLocalStorage from "@hooks/useLocalStorage";
+import { useParams } from "react-router-dom";
 
 const ResumePreview = () => {
   const [fontSize] = useState<number>(10);
@@ -18,8 +19,6 @@ const ResumePreview = () => {
     );
     setTemplate(template ? template.template : defaultTemplate);
   }, [templateID]);
-
-  // styles
 
   const [, setScale] = useState(1);
   const [, setScaleX] = useState(1);
@@ -58,10 +57,24 @@ const ResumePreview = () => {
 
   return (
     <div
-      className="resume-preview-container bg-black cursor-pointer h-svh overflow-hidden
+      className="resume-preview-container bg-black cursor-pointer h-svh overflow-y-auto text-white max-w-[1200px]
     "
     >
-      <div className="flex flex-col justify-center items-center gap-y-2 py-3 h-full w-full">
+      <div className="flex flex-col  items-center gap-y-2 py-3 h-full w-full">
+        <div className="sm:hidden">
+          {/* logo */}
+          <div>
+            <img
+              src="/logo-color.png"
+              alt="logo"
+              className="w-full min-w-[150px] h-[200px] max-h-[200px]"
+            />
+          </div>
+          {/* small screen msg */}
+          <div className="text-lg px-2 mx-auto text-center my-5 text-[#f00b51]">
+            <p>Your PDF is ready to download. Click the button below</p>
+          </div>
+        </div>
         {/* buttons */}
         <div className="flex items-center justify-center gap-x-10 gap-y-5 flex-wrap [&>*]:text-white [&>*]:text-center [&>*]:px-4 [&>*]:py-2 [&>*]:rounded [&>*]:w-52">
           <PDFDownloadLink
@@ -91,7 +104,7 @@ const ResumePreview = () => {
         {/* resume preview */}
         <div
           key={window.innerWidth}
-          className="w-[99%] max-w-[217mm] h-[90vh] overflow-hidden"
+          className="hidden sm:block w-[99%] max-w-[217mm] h-[100vh] overflow-hidden"
           ref={pdfRef}
         >
           <PDFViewer

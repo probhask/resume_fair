@@ -1,6 +1,7 @@
 import { Document, Page, Text, View } from "@react-pdf/renderer";
 
 import ResumeStyles from "./ResumeStyles";
+import { defaultTemplate } from "@constants/Templates";
 
 const ResumePDF = ({
   data: {
@@ -13,14 +14,14 @@ const ResumePDF = ({
     languages,
     references,
   },
-  fontSize,
-  pageMargin,
-  template,
+  fontSize = 10,
+  pageMargin = 14,
+  template = defaultTemplate,
 }: {
   data: LocalStorageDataMap;
-  fontSize: number;
-  pageMargin: number;
-  template: TemplateStyle;
+  fontSize?: number;
+  pageMargin?: number;
+  template?: TemplateStyle;
 }) => {
   const styles = ResumeStyles({ fontSize, pageMargin, template });
 
