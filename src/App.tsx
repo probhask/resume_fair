@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import AddRemoveOtherPersonalDetailSection from "@features/Home/PersonalDetails/AddRemoveOtherPersonalDetailSection/AddRemoveOtherPersonalDetailSection";
+import { BiLoaderCircle } from "react-icons/bi";
 import ChooseTemplate from "@pages/ChooseTemplate";
 import DefaultSection from "@features/Home/Default/DefaultSection";
 import Education from "@features/Home/Education/Education";
@@ -15,14 +16,26 @@ import Projects from "@features/Home/ProjectSection/Project";
 import Reference from "@features/Home/Reference/Reference";
 import ResumePreview from "@pages/ResumePreview";
 import Skills from "@features/Home/Skills/Skills";
+import { Suspense } from "react";
 import WelcomePage from "@pages/WelcomePage";
 
 const routes = createBrowserRouter([
-  { path: "/", element: <WelcomePage />, errorElement: <ErrorElement /> },
+  {
+    path: "/",
+    element: (
+      <ErrorBoundary>
+        <WelcomePage />
+      </ErrorBoundary>
+    ),
+  },
   {
     path: "forms",
-    element: <Home />,
-    errorElement: <ErrorElement />,
+    element: (
+      <ErrorBoundary>
+        {" "}
+        <Home />
+      </ErrorBoundary>
+    ),
     children: [
       {
         path: "",
@@ -68,21 +81,42 @@ const routes = createBrowserRouter([
   },
   {
     path: "template",
-    element: <ChooseTemplate />,
+    element: (
+      <ErrorBoundary>
+        <ChooseTemplate />
+      </ErrorBoundary>
+    ),
   },
   {
     path: "resume/:templateId",
-    element: <ResumePreview />,
+    element: (
+      <ErrorBoundary>
+        <ResumePreview />
+      </ErrorBoundary>
+    ),
+  },
+  {
+    path: "*",
+    element: <ErrorElement />,
   },
 ]);
 
 function App() {
   return (
-    <div className="bg-black">
-      <ErrorBoundary>
-        <RouterProvider router={routes} />
-      </ErrorBoundary>
-    </div>
+    <ErrorBoundary>
+      <Suspense
+        fallback={
+          <div className="w-full h-svh bg-black flex justify-center items-center">
+            {" "}
+            <BiLoaderCircle className="size-10 md:size-20 animate-spin text-[#f00b51] duration-75 ease-in" />
+          </div>
+        }
+      >
+        <div className="bg-black">
+          <RouterProvider router={routes} />
+        </div>
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
