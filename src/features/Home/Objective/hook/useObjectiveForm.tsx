@@ -1,6 +1,8 @@
-import useLocalStorage from "@hooks/useLocalStorage";
-import { useEffect, useMemo, useState } from "react";
 import * as Yup from "yup";
+
+import { useEffect, useMemo, useState } from "react";
+
+import useLocalStorage from "@hooks/useLocalStorage";
 
 const useObjectiveForm = () => {
   const [storedObjectiveData, setStoredObjectiveData] =
@@ -16,12 +18,13 @@ const useObjectiveForm = () => {
 
   useEffect(() => {
     const data = getLocalStorageByKey<ObjectiveFields>("objective")[0];
+    console.log("data: ", data);
     setStoredObjectiveData(data);
   }, []);
 
   const initialValues = useMemo(
     (): ObjectiveFields => ({
-      objective: storedObjectiveData.objective ?? "",
+      objective: storedObjectiveData?.objective || "",
     }),
     [storedObjectiveData]
   );

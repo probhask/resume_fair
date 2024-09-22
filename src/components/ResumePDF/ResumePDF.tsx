@@ -27,44 +27,48 @@ const ResumePDF = ({
 
   return (
     <Document>
-      <Page size="A4" style={[styles.page]}>
+      <Page size="A4" style={[styles?.page]}>
         {/* personal info */}
-        <View style={[styles.section, styles.personalDetail]}>
-          <Text style={styles.name}>{personalDetails[0]?.name}</Text>
-          {/* other personal Details */}
-          <View style={styles.flex_row}>
-            {personalDetails[0]?.phone && (
-              <Text style={styles.text}>{personalDetails[0]?.phone}</Text>
+        {personalDetails?.length > 0 && (
+          <View style={[styles?.section, styles?.personalDetail]}>
+            <Text style={styles?.name}>{personalDetails[0]?.name}</Text>
+            {/* other personal Details */}
+            <View style={styles?.flex_row}>
+              {personalDetails[0]?.phone && (
+                <Text style={styles?.text}>{personalDetails[0]?.phone}</Text>
+              )}
+              {personalDetails[0]?.email && (
+                <Text style={styles?.text}>{personalDetails[0]?.email}</Text>
+              )}
+            </View>
+            {personalDetails[0]?.address && (
+              <Text style={styles?.text}>{personalDetails[0]?.address}</Text>
             )}
-            {personalDetails[0]?.email && (
-              <Text style={styles.text}>{personalDetails[0]?.email}</Text>
+            {personalDetails[0]?.linkedin && (
+              <Text style={styles?.text}>{personalDetails[0]?.linkedin}</Text>
+            )}
+            {personalDetails[0]?.github && (
+              <Text style={styles?.text}>{personalDetails[0]?.github}</Text>
             )}
           </View>
-          {personalDetails[0]?.address && (
-            <Text style={styles.text}>{personalDetails[0]?.address}</Text>
-          )}
-          {personalDetails[0]?.linkedin && (
-            <Text style={styles.text}>{personalDetails[0]?.linkedin}</Text>
-          )}
-          {personalDetails[0]?.github && (
-            <Text style={styles.text}>{personalDetails[0]?.github}</Text>
-          )}
-        </View>
+        )}
 
         {/* objective */}
-        <View style={[styles.section]}>
-          <Text style={styles.sectionHeading}>Objective</Text>
-          <Text style={[styles.text, styles.sectionData]}>
-            {objective[0]?.objective}
-          </Text>
-        </View>
+        {objective?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Objective</Text>
+            <Text style={[styles?.text, styles?.sectionData]}>
+              {objective[0]?.objective}
+            </Text>
+          </View>
+        )}
 
         {/* experience */}
-        {experience.length > 0 && (
-          <View style={[styles.section]}>
-            <Text style={styles.sectionHeading}>Experience</Text>
-            <View style={styles.sectionData}>
-              {experience.map(
+        {experience?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Experience</Text>
+            <View style={styles?.sectionData}>
+              {experience?.map(
                 ({
                   id,
                   companyName,
@@ -74,22 +78,26 @@ const ResumePDF = ({
                   startDate,
                 }) => (
                   <View key={id}>
-                    <View style={styles.flex_row_between}>
-                      <View style={[styles.bulletContent]}>
-                        <Text style={styles.bulletPoint}>•</Text>
-                        <Text style={styles.subHeading}>{companyName}</Text>
+                    <View style={styles?.flex_row_between}>
+                      <View style={[styles?.bulletContent]}>
+                        <Text style={styles?.bulletPoint}>•</Text>
+                        <Text style={styles?.subHeading}>{companyName}</Text>
                       </View>
-                      <View style={styles.time}>
-                        <Text style={styles.text}>{startDate}</Text>
-                        {startDate && endDate && (
-                          <Text style={styles.text}>-</Text>
+                      <View style={styles?.time}>
+                        {startDate && (
+                          <Text style={styles?.text}>{startDate}</Text>
                         )}
-                        <Text style={styles.text}>{endDate}</Text>
+                        {startDate && endDate && (
+                          <Text style={styles?.text}>-</Text>
+                        )}
+                        {endDate && <Text style={styles?.text}>{endDate}</Text>}
                       </View>
                     </View>
-                    <View style={[styles.bulletContentSibling]}>
-                      <Text style={styles.text}>{jobTitle}</Text>
-                      <Text style={styles.text}>{description}</Text>
+                    <View style={[styles?.bulletContentSibling]}>
+                      <Text style={styles?.text}>{jobTitle}</Text>
+                      {description && (
+                        <Text style={styles?.text}>{description}</Text>
+                      )}
                     </View>
                   </View>
                 )
@@ -99,22 +107,22 @@ const ResumePDF = ({
         )}
 
         {/* education */}
-        {education.length > 0 && (
-          <View style={[styles.section]}>
-            <Text style={styles.sectionHeading}>Education</Text>
-            <View style={styles.sectionData}>
-              {education.map(({ course, id, institution, score, year }) => (
+        {education?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Education</Text>
+            <View style={styles?.sectionData}>
+              {education?.map(({ course, id, institution, score, year }) => (
                 <View key={id}>
-                  <View style={styles.flex_row_between}>
-                    <View style={[styles.bulletContent]}>
-                      <Text style={styles.bulletPoint}>•</Text>
-                      <Text style={styles.subHeading}>{institution}</Text>
+                  <View style={styles?.flex_row_between}>
+                    <View style={[styles?.bulletContent]}>
+                      <Text style={styles?.bulletPoint}>•</Text>
+                      <Text style={styles?.subHeading}>{institution}</Text>
                     </View>
-                    <Text style={styles.text}>{year}</Text>
+                    {year && <Text style={styles?.text}>{year}</Text>}
                   </View>
-                  <View style={[styles.bulletContentSibling]}>
-                    <Text style={styles.text}>{course}</Text>
-                    <Text style={styles.text}>{score}</Text>
+                  <View style={[styles?.bulletContentSibling]}>
+                    <Text style={styles?.text}>{course}</Text>
+                    {score && <Text style={styles?.text}>{score}</Text>}
                   </View>
                 </View>
               ))}
@@ -123,17 +131,17 @@ const ResumePDF = ({
         )}
 
         {/* skills */}
-        {skills.length > 0 && (
-          <View style={[styles.section]}>
-            <Text style={styles.sectionHeading}>Skills</Text>
-            <View style={[styles.sectionData, styles.skillsData]}>
-              {skills.map(({ id, skill }) => (
+        {skills?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Skills</Text>
+            <View style={[styles?.sectionData, styles?.skillsData]}>
+              {skills?.map(({ id, skill }) => (
                 <View
                   key={id}
-                  style={[styles.bulletContent, styles.skillsItem]}
+                  style={[styles?.bulletContent, styles?.skillsItem]}
                 >
-                  <Text style={styles.bulletPoint}>•</Text>
-                  <Text style={styles.text}>{skill}</Text>
+                  <Text style={styles?.bulletPoint}>•</Text>
+                  <Text style={styles?.text}>{skill}</Text>
                 </View>
               ))}
             </View>
@@ -141,19 +149,21 @@ const ResumePDF = ({
         )}
 
         {/* projects */}
-        {projects.length > 0 && (
-          <View style={[styles.section]}>
-            <Text style={styles.sectionHeading}>Projects</Text>
-            <View style={[styles.sectionData]}>
-              {projects.map(({ id, projectTitle, description }) => (
+        {projects?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Projects</Text>
+            <View style={[styles?.sectionData]}>
+              {projects?.map(({ id, projectTitle, description }) => (
                 <View key={id}>
-                  <View style={[styles.bulletContent]}>
-                    <Text style={styles.bulletPoint}>•</Text>
-                    <Text style={styles.subHeading}>{projectTitle}</Text>
+                  <View style={[styles?.bulletContent]}>
+                    <Text style={styles?.bulletPoint}>•</Text>
+                    <Text style={styles?.subHeading}>{projectTitle}</Text>
                   </View>
-                  <Text style={[styles.text, styles.bulletContentSibling]}>
-                    {description}
-                  </Text>
+                  {description && (
+                    <Text style={[styles?.text, styles?.bulletContentSibling]}>
+                      {description}
+                    </Text>
+                  )}
                 </View>
               ))}
             </View>
@@ -161,14 +171,14 @@ const ResumePDF = ({
         )}
 
         {/* languages */}
-        {languages.length > 0 && (
-          <View style={[styles.section]}>
-            <Text style={styles.sectionHeading}>Languages</Text>
-            <View style={styles.sectionData}>
-              {languages.map(({ id, languageTitle }) => (
-                <View key={id} style={[styles.bulletContent]}>
-                  <Text style={styles.bulletPoint}>•</Text>
-                  <Text style={styles.text}>{languageTitle}</Text>
+        {languages?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Languages</Text>
+            <View style={styles?.sectionData}>
+              {languages?.map(({ id, languageTitle }) => (
+                <View key={id} style={[styles?.bulletContent]}>
+                  <Text style={styles?.bulletPoint}>•</Text>
+                  <Text style={styles?.text}>{languageTitle}</Text>
                 </View>
               ))}
             </View>
@@ -176,11 +186,11 @@ const ResumePDF = ({
         )}
 
         {/* references */}
-        {references.length > 0 && (
-          <View style={[styles.section]}>
-            <Text style={styles.sectionHeading}>Reference</Text>
-            <View style={styles.sectionData}>
-              {references.map(
+        {references?.length > 0 && (
+          <View style={[styles?.section]}>
+            <Text style={styles?.sectionHeading}>Reference</Text>
+            <View style={styles?.sectionData}>
+              {references?.map(
                 ({
                   id,
                   referenceName,
@@ -190,26 +200,26 @@ const ResumePDF = ({
                   phone,
                 }) => (
                   <View key={id}>
-                    <View key={id} style={[styles.bulletContent]}>
-                      <Text style={styles.bulletPoint}>•</Text>
-                      <Text style={styles.subHeading}>{referenceName}</Text>
+                    <View key={id} style={[styles?.bulletContent]}>
+                      <Text style={styles?.bulletPoint}>•</Text>
+                      <Text style={styles?.subHeading}>{referenceName}</Text>
                     </View>
-                    <View style={[styles.bulletContentSibling]}>
-                      <View style={[styles.flex_row, { columnGap: 4 }]}>
+                    <View style={[styles?.bulletContentSibling]}>
+                      <View style={[styles?.flex_row, { columnGap: 4 }]}>
                         {companyName && (
-                          <Text style={styles.text}>{companyName}</Text>
+                          <Text style={styles?.text}>{companyName}</Text>
                         )}
                         {companyName && jobTitle && (
-                          <Text style={[styles.text]}>-</Text>
+                          <Text style={[styles?.text]}>-</Text>
                         )}
                         {jobTitle && (
-                          <Text style={styles.text}>{jobTitle}</Text>
+                          <Text style={styles?.text}>{jobTitle}</Text>
                         )}
                       </View>
-                      <View style={[styles.flex_row, { columnGap: 4 }]}>
-                        {phone && <Text style={styles.text}>{phone}</Text>}
-                        {phone && email && <Text style={styles.text}>-</Text>}
-                        {email && <Text style={styles.text}>{email}</Text>}
+                      <View style={[styles?.flex_row, { columnGap: 4 }]}>
+                        {phone && <Text style={styles?.text}>{phone}</Text>}
+                        {phone && email && <Text style={styles?.text}>-</Text>}
+                        {email && <Text style={styles?.text}>{email}</Text>}
                       </View>
                     </View>
                   </View>

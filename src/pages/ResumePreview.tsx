@@ -12,7 +12,6 @@ const ResumePreview = () => {
   const [fontSize] = useState<number>(10);
   const [pageMargin] = useState<number>(14);
   const [template, setTemplate] = useState<TemplateStyle>(defaultTemplate);
-  const [tempId, setTempId] = useState<string>("1");
 
   const { templateId } = useParams();
   useEffect(() => {
@@ -21,7 +20,6 @@ const ResumePreview = () => {
         (template) => template?.id === templateId
       );
       setTemplate(template ? template?.template : defaultTemplate);
-      setTempId(templateId);
     }
   }, [templateId]);
 
@@ -34,13 +32,13 @@ const ResumePreview = () => {
     "
     >
       <div className="flex flex-col  items-center gap-y-2 py-3 h-full w-full">
-        <div className="">
+        <div className="sm:hidden">
           {/* logo */}
           <div className="w-full min-w-[150px] sm:min-w-[400px] h-[200px] max-h-[300px] sm:h-[400px] sm:max-h-[400px] overflow-hidden">
             <img
               src="/logo-color.png"
               alt="logo"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
           </div>
           {/* small screen msg */}
@@ -81,7 +79,7 @@ const ResumePreview = () => {
             className="hidden sm:block w-[99%] max-w-[217mm] h-[100vh] overflow-hidden"
           >
             <PDFViewer
-              key={tempId ? tempId : "1"}
+              key={window?.innerWidth}
               style={{
                 width: "100%",
                 height: "100%",

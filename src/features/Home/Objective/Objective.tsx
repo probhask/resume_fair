@@ -30,9 +30,9 @@ const Objective = React.memo(() => {
                 label="Objective"
                 name="objective"
                 placeholder="write your objective"
-                value={values.objective}
+                value={values?.objective}
                 onValueChange={handleChange}
-                errorMsg={errors.objective}
+                errorMsg={errors?.objective}
                 handleBlur={handleBlur}
               />
 
