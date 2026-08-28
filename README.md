@@ -1,107 +1,107 @@
 # Resume Fair
 
-## Table Of Contents
-- [Resume Fair](#resume-fair)
-  - [Table Of Contents](#table-of-contents)
-  - [Introduction](#introduction)
-    - [Deployment](#deployment)
-    - [Features](#features)
-  - [Technologies Used](#technologies-used)
-  - [Components Overview](#components-overview)
-    - [Resume Components](#resume-components)
-    - [Form Components](#form-components)
-    - [Error Handling](#error-handling)
-  - [PDF Generation](#pdf-generation)
-  - [Website Preview](#website-preview)
-  - [Templates](#templates)
-  - [How to Run the Project](#how-to-run-the-project)
-  - [Future Enhancements](#future-enhancements)
+A **resume builder** built with React, TypeScript and `@react-pdf/renderer`. Fill in
+your details, pick from 8 layouts modelled on well-known resume designs, tune the
+colour / fonts / spacing, and download a print-ready PDF. Everything runs in the
+browser — no account, no server.
 
-## Introduction
-This project is a **Resume Builder App** developed using React, TypeScript, and `@react-pdf/renderer`. The app allows users to input their personal details, education, experience, skills, and other information, and generates a resume in PDF format using customizable templates.
+**Live:** [resume-fair.netlify.app](https://resume-fair.netlify.app/)
 
-### Deployment
-This project has been successfully deployed on **Netlify** making it easily accessible online. You can view th live version of the project by visiting the following link: [Netlify Deployment Link🔗](https://resume-fair.netlify.app/)
-![Welcome page](./websiteMedia/1.png)
-
-### Features
-- **Customizable Resume Templates**: Users can select from multiple templates to generate their resume.
-- **Dynamic Form Fields**: Add personal details, education, work experience, and more.
-- **Error Handling**: Built-in error boundaries and error elements ensure a smooth user experience.
-- **PDF Generation**: Users can preview their resume in PDF format and download it.
-  
-## Technologies Used
-- **React**: The app is built with React, making it highly interactive and modular.
-- **TypeScript**: For static type checking and improving code quality.
-- **Vite**: Used as the build tool for fast development and optimized production builds.
-- **@react-pdf/renderer**: A library used for rendering PDFs directly in React.
-- **Error Boundaries**: Custom error boundaries have been implemented to handle and display errors gracefully.
-  
-## Components Overview
-### Resume Components
-- `ResumePDF.tsx`: The core component responsible for rendering the resume in PDF format using the user's input.
-- `ResumeStyles.tsx`: Defines all the styles for the PDF document, ensuring that the resume is visually appealing.
-
-### Form Components
-- `InputText.tsx`, `InputTextArea.tsx`: Reusable form elements for user inputs.
-- `AddButton.tsx`, `SaveButton.tsx`: Components to handle adding and saving form data.
-  
-### Error Handling
-- `ErrorBoundary.tsx`: A boundary that catches JavaScript errors in the app and displays a fallback UI.
-- `ErrorElement.tsx`: Displays a custom error message when something goes wrong.
-  
-## PDF Generation
-The @react-pdf/renderer library is used to generate PDF documents. The app dynamically applies user input data to customizable templates, allowing users to download a professionally styled resume.
-
-## Website Preview
-
-![Forms](./websiteMedia/2.png)
-
-![PersonalDetail](./websiteMedia/3.png)
-
-![Templates](./websiteMedia/4.png)
-
-![PDF preview](./websiteMedia/5.png)
+## Table of Contents
+- [Templates](#templates)
+- [Screens](#screens)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Running Locally](#running-locally)
+- [Roadmap](#roadmap)
 
 ## Templates
-<img src="./public/template/template1.png" alt="template" width="200" styles="margin:20px"/>
-<img src="./public/template/template2.png" alt="template" width="200" styles="margin:20px"/>
-<img src="./public/template/template3.png" alt="template" width="200" styles="margin:20px"/>
 
+Eight distinct layouts (recolour, change fonts and spacing on the preview screen).
+Previews below are rendered from the actual templates with sample data.
 
+| | | | |
+|:---:|:---:|:---:|:---:|
+| <img src="./public/template/1.png" width="200" alt="Classic template" /> | <img src="./public/template/2.png" width="200" alt="Executive template" /> | <img src="./public/template/3.png" width="200" alt="Modern template" /> | <img src="./public/template/4.png" width="200" alt="Cascade template" /> |
+| **Classic** — Harvard-style serif, ruled headings | **Executive** — full-width header band, uppercase headings | **Modern** — Deedy-style two-column | **Cascade** — colour sidebar with photo |
+| <img src="./public/template/5.png" width="200" alt="Minimal template" /> | <img src="./public/template/6.png" width="200" alt="Elegant template" /> | <img src="./public/template/7.png" width="200" alt="Awesome-CV template" /> | <img src="./public/template/8.png" width="200" alt="Compact template" /> |
+| **Minimal** — ATS-plain, one typeface | **Elegant** — centered small-caps serif | **Awesome-CV** — slab accent name and headings | **Compact** — tight margins, one page |
 
+Regenerate these previews after changing a layout:
 
+```bash
+npm run gen:templates
+```
 
-## How to Run the Project
-1. Clone the repository
+## Screens
+
+| Welcome | Form | Personal details |
+|:---:|:---:|:---:|
+| ![Welcome page](./websiteMedia/1.png) | ![Form](./websiteMedia/2.png) | ![Personal details](./websiteMedia/3.png) |
+
+## Features
+
+- **8 real layouts** — single-column, header-band, two-column and sidebar, each with
+  its own font pairing and heading style (not just a colour swap).
+- **Live design controls** — accent colour, font size, page margin and line height,
+  applied to the PDF preview in real time.
+- **Dynamic sections** — personal details, summary, experience, education, skills,
+  projects, languages and references, each with add / remove.
+- **Autosave** — every change is written to `localStorage`; a toast confirms saves.
+- **PDF export** — preview and download a print-ready A4 PDF.
+- **Offline** — no backend, no sign-in; your data never leaves the browser.
+
+## Tech Stack
+
+| | |
+|---|---|
+| **Framework** | React 18 + TypeScript, Vite |
+| **State** | Zustand (per-resume store with debounced autosave) |
+| **Forms** | Formik + Yup |
+| **PDF** | `@react-pdf/renderer` with self-hosted Inter / Source Serif 4 / Roboto Slab |
+| **UI** | Tailwind CSS, `react-hot-toast` |
+| **Testing** | Vitest + Testing Library |
+
+## Project Structure
+
+```
+src/
+  store/useResumeStore.ts        Zustand store — the active resume + actions
+  services/storage.ts, migrate.ts  per-resume localStorage, legacy-blob migration
+  types/resume.ts                Resume + Template schema
+  constants/Templates.ts         the 8 template definitions
+  components/ResumePDF/
+    ResumePDF.tsx                 dispatcher: resume -> layout
+    buildStyles.ts               StyleSheet from template + settings
+    sections.tsx                  per-section PDF renderers
+    layouts.tsx                   SingleColumn / HeaderBand / TwoColumn / Sidebar
+    registerAppFonts.ts           Font.register for the bundled TTFs
+  features/Home/*                 form sections
+  pages/
+    WelcomePage, Home            landing + form shell
+    ChooseTemplate               template gallery
+    ResumePreview                preview + design sidebar
+scripts/
+  render-templates.tsx           render every template to a PDF
+  gen-templates.sh               + rasterise to public/template/<id>.png
+```
+
+## Running Locally
+
 ```bash
 git clone https://github.com/probhask/resume_fair.git
-```
-
-2. Install Dependencies
-
-```bash
+cd resume_fair
 npm install
-or
-yarn install
-```
-
-3. Run the Development Server
-
-```bash
 npm run dev
-or
-yarn dev
 ```
 
-This development server will start, and you should see output indicating the server is running.
+Then open the URL Vite prints. Other scripts: `npm run build`, `npm test`,
+`npm run gen:templates`.
 
-4. Open the Application
+## Roadmap
 
-Open your browser and navigate to the local URL provided by Vite development server to view React Application
-
-
-## Future Enhancements
-- Add more customizable templates.
-- Allow users to upload their own template designs.
-- Add support for multi-page resumes.
+- Side-by-side editor with live preview
+- Drag-to-reorder and show / hide sections
+- Custom sections (certifications, awards, …)
+- Multiple resumes + JSON import / export
