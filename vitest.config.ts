@@ -1,4 +1,3 @@
-// import { defineConfig } from "vitest/config";
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import path from "path";
@@ -8,33 +7,31 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./test/setup.ts",
+    setupFiles: "./src/test/setup.ts",
     coverage: {
       exclude: [
         "dist/*",
-        "src/types/",
-        "src/router",
-        "src/pages/Modal.tsx",
+        "src/types/**",
         "**/*vite*",
         "**/*tailwind*",
         "**/*postcss*",
         "**/*eslint*",
-        "**/__test__/**",
-        "^(?!.*\\.test\\.tsx$).*",
+        "**/__tests__/**",
         "**/main.tsx",
       ],
     },
   },
   resolve: {
     alias: {
+      "@assets": path.resolve(__dirname, "./src/assets"),
       "@components": path.resolve(__dirname, "./src/components"),
-      "@container": path.resolve(__dirname, "./src/container"),
+      "@constants": path.resolve(__dirname, "./src/constants"),
       "@context": path.resolve(__dirname, "./src/context"),
       "@features": path.resolve(__dirname, "./src/features"),
-      "@hook": path.resolve(__dirname, "./src/hook"),
-      "@router": path.resolve(__dirname, "./src/router"),
-      "@types": path.resolve(__dirname, "./src/types"),
+      "@pages": path.resolve(__dirname, "./src/pages"),
+      "@hooks": path.resolve(__dirname, "./src/hooks"),
       "@utils": path.resolve(__dirname, "./src/utils"),
+      "@types": path.resolve(__dirname, "./src/types"),
     },
   },
 });

@@ -11,11 +11,14 @@ type OtherFormInputType = FormInputType & { hidden: boolean };
 // section types
 type PersonalDetailFields = {
   name: string;
+  title?: string;
   address?: string;
   email?: string;
   phone?: string;
   linkedin?: string;
   github?: string;
+  /** base64 data URL, used by photo-capable templates */
+  photo?: string;
 };
 type ObjectiveFields = {
   objective: string;
@@ -87,24 +90,4 @@ type LocalStorageSection<K extends LocalStorageKey> = {
   dataType: LocalStorageDataMap[K];
 };
 
-type TemplateStyle = {
-  sectionHeading: {
-    text: string;
-    bg: string;
-  };
-  skillFlexDirection: "column" | "row" | "column-reverse" | "row-reverse";
-  personalDetail: {
-    align:
-      | "center"
-      | "flex-start"
-      | "flex-end"
-      | "stretch"
-      | "baseline"
-      | undefined;
-  };
-};
-
-type TemplateList = {
-  id: string;
-  template: TemplateStyle;
-};
+// Template types live in src/types/resume.ts (exported module).

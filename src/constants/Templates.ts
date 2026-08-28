@@ -1,108 +1,124 @@
-export const defaultTemplate: TemplateStyle = {
-  personalDetail: {
-    align: "center",
-  },
-  sectionHeading: {
-    bg: "white",
-    text: "black",
-  },
-  skillFlexDirection: "column",
-};
+import type { Template } from "../types/resume";
 
-// section gray bg
-export const template2: TemplateStyle = {
-  personalDetail: {
-    align: "center",
-  },
-  sectionHeading: {
-    bg: "gray",
-    text: "white",
-  },
-  skillFlexDirection: "row",
-};
-
-// section blue bg with left-aligned text
-export const template3: TemplateStyle = {
-  personalDetail: {
-    align: "flex-start",
-  },
-  sectionHeading: {
-    bg: "lightblue",
-    text: "darkblue",
-  },
-  skillFlexDirection: "row",
-};
-
-// section dark bg with white text and center-aligned text
-export const template4: TemplateStyle = {
-  personalDetail: {
-    align: "center",
-  },
-  sectionHeading: {
-    bg: "black",
-    text: "white",
-  },
-  skillFlexDirection: "column",
-};
-
-// section light bg with bold text
-export const template5: TemplateStyle = {
-  personalDetail: {
-    align: "flex-end",
-  },
-  sectionHeading: {
-    bg: "lightgray",
-    text: "darkgray",
-  },
-  skillFlexDirection: "row",
-};
-
-// section dark bg with pink text and center-aligned text
-export const template6: TemplateStyle = {
-  personalDetail: {
-    align: "center",
-  },
-  sectionHeading: {
-    bg: "#f00b51",
-    text: "white",
-  },
-  skillFlexDirection: "row",
-};
-
-const templateList: TemplateList[] = [
-  { id: "1", template: defaultTemplate },
-  { id: "2", template: template2 },
-  { id: "3", template: template3 },
-  { id: "4", template: template4 },
-  { id: "5", template: template5 },
-  { id: "6", template: template6 },
-];
-
-export const templatePreviewList: { id: string; templateImage: string }[] = [
+/**
+ * Eight resume templates modelled on widely-recognised designs. Ids "1"–"8" are
+ * stable: legacy stored `templateId` values ("1".."6") still resolve, and unknown
+ * ids fall back to Classic.
+ */
+export const TEMPLATES: Template[] = [
   {
     id: "1",
-    templateImage: "/template/template1.png",
+    name: "Classic",
+    blurb: "Harvard-style. Centered serif name, ruled headings, no color.",
+    layout: "single",
+    fontPair: { heading: "serif", body: "serif" },
+    accent: "#1f2937",
+    headingStyle: "rule",
+    dateAlign: "right",
+    density: "comfortable",
+    showPhoto: false,
   },
   {
     id: "2",
-    templateImage: "/template/template2.png",
+    name: "Executive",
+    blurb: "Full-width header band, uppercase headings. Senior / corporate.",
+    layout: "header-band",
+    fontPair: { heading: "sans", body: "sans" },
+    accent: "#0f172a",
+    headingStyle: "plain-caps",
+    dateAlign: "right",
+    density: "comfortable",
+    showPhoto: false,
   },
   {
     id: "3",
-    templateImage: "/template/template3.png",
+    name: "Modern",
+    blurb: "Deedy-style two-column. Skills & education beside your experience.",
+    layout: "two-column",
+    fontPair: { heading: "sans", body: "sans" },
+    accent: "#2563eb",
+    headingStyle: "plain-caps",
+    dateAlign: "inline",
+    density: "comfortable",
+    showPhoto: false,
+    sidebar: {
+      widthPct: 34,
+      bg: "#ffffff",
+      text: "#1f2937",
+      sections: ["skills", "education", "languages"],
+    },
   },
   {
     id: "4",
-    templateImage: "/template/template4.png",
+    name: "Cascade",
+    blurb: "Colored sidebar with photo, contact, skills. The designer look.",
+    layout: "sidebar",
+    fontPair: { heading: "sans", body: "sans" },
+    accent: "#0d9488",
+    headingStyle: "plain-caps",
+    dateAlign: "right",
+    density: "comfortable",
+    showPhoto: true,
+    sidebar: {
+      widthPct: 35,
+      bg: "#0d9488",
+      text: "#ffffff",
+      sections: ["skills", "languages", "education", "references"],
+    },
   },
   {
     id: "5",
-    templateImage: "/template/template5.png",
+    name: "Minimal",
+    blurb: "One typeface, lots of whitespace, no rules. ATS-friendly.",
+    layout: "single",
+    fontPair: { heading: "sans", body: "sans" },
+    accent: "#111827",
+    headingStyle: "plain-caps",
+    dateAlign: "right",
+    density: "comfortable",
+    showPhoto: false,
   },
   {
     id: "6",
-    templateImage: "/template/template6.png",
+    name: "Elegant",
+    blurb: "Centered small-caps headings, hairline rules, serif. Editorial.",
+    layout: "single",
+    fontPair: { heading: "serif", body: "serif" },
+    accent: "#7c2d12",
+    headingStyle: "smallcaps-center",
+    dateAlign: "right",
+    density: "comfortable",
+    showPhoto: false,
+  },
+  {
+    id: "7",
+    name: "Awesome-CV",
+    blurb: "Large accent name, short underline headings, muted dates.",
+    layout: "single",
+    fontPair: { heading: "slab", body: "sans" },
+    accent: "#c0392b",
+    headingStyle: "accent-underline",
+    dateAlign: "right",
+    density: "comfortable",
+    showPhoto: false,
+  },
+  {
+    id: "8",
+    name: "Compact",
+    blurb: "Tight margins, three-column skills. Fits a full CV on one page.",
+    layout: "single",
+    fontPair: { heading: "sans", body: "sans" },
+    accent: "#334155",
+    headingStyle: "rule",
+    dateAlign: "right",
+    density: "compact",
+    showPhoto: false,
   },
 ];
 
-export default templateList;
+export const getTemplate = (id: string | undefined): Template =>
+  TEMPLATES.find((t) => t.id === id) ?? TEMPLATES[0];
+
+export const defaultTemplate = TEMPLATES[0];
+
+export default TEMPLATES;
